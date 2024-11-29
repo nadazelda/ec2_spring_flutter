@@ -1,8 +1,8 @@
 1. 프로젝트별 구성내용 
 	1-1.ApiWebServer 
-		  Spring boot
+		  Spring boot 3.4
 		  Mysql 
-		  Java Jdk
+		  Java Jdk 17
 
 	1-2.Flutter TestApp
 	    flutter 
