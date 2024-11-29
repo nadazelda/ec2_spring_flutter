@@ -1,0 +1,68 @@
+1. 프로젝트별 구성내용 
+	1-1.ApiWebServer 
+		  Spring boot
+		  Mysql 
+		  Java Jdk
+
+	1-2.Flutter TestApp
+	    flutter 
+
+
+2. EC2 AWS Server 구성
+	Docker Container로 구성합니다
+		-Api WebServer 컨테이너
+		-Mysql 컨테이너
+		-Flutter 컨테이너
+		-Nginx 컨테이너 
+
+
+
+3. 테스트 방법
+**EC2 서버 Docker 설치는 반드시 해야합니다 
+**아래 내용은 전부 Ec2 콘솔에서 진행합니다. 
+
+	3-1. git에서 전체 프로젝트를 clone 합니다
+		해당 git 소스 복사
+		apitestWebServer ( 웹서버 )
+		apitestAppFlutter ( flutter )
+	3-2. EC2 서버 Api WebServer 컨테이너 생성
+		웹서버 프로젝트로 들어가서 Dockerfile 확인
+			- mysql, jdk, gradle 등을 설치하는 내용 포함
+			- mysql 테스트를 위한 user테이블 생성 쿼리 포함
+			**mysql 계정, 비번, 테이블명은 여기서 변경합니다 
+			**웹서버 포트도 여기서 변경합니다 
+		
+		Docker파일로 실행시 : 컨테이너 생성 명경어 실행 ( sudo docker build -t unji-web-builder .)
+		docker-compose로 실행시 : sudo docker-compose up --build -d
+		한개서비스만 실행할때 sudo docker run -d -p 8092:8092 --name unji-service unji-web-builder
+		
+	3-3. 플루터 앱 apk 컴파일
+	
+	
+	3-4. nginx 컨테이너 생성
+		flutter 프로젝트 폴더에 있는 Dockerfile.nginx, nginx.conf 파일과 apk 파일은 같은 위치에 있어야한다.
+		컨테이너를 생성 (docker build -t nginx-apk-server -f Dockerfile.nginx . )
+		컨테이너를 실행 (docker run -d -p 80:80 --name apk-server nginx-apk-server )
+		
+			
+		
+	3-5. 웹서버, mysql, nginx 서비스 3개 컨테이너가 실행중인지 확인 
+		http://ec2 ip /apk파일명
+		접속하면 apk파일을 다운로드 받게 된다 
+		앱 설치후 로그인, 회원가입, 회원목록 서비스가 정상 작동 하는지 여부를 확인 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+	
